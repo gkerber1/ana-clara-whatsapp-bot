@@ -15,8 +15,7 @@ app.post("/api", async (req, res) => {
   }
 
   const OPENAI_KEY = process.env.OPENAI_KEY;
-  const ZAPI_INSTANCE_ID = process.env.ZAPI_INSTANCE_ID;
-  const ZAPI_TOKEN = process.env.ZAPI_TOKEN;
+  const ULTRAMSG_TOKEN = process.env.ULTRAMSG_TOKEN;
 
   const PROMPT_BASE = `
 Seu nome é Ana Clara. Você é uma consultora comercial do Grupo CredBens, especializada em ajudar pessoas a conquistarem bens de forma planejada, segura e acessível. Você não é uma inteligência artificial — se apresenta sempre como parte do time humano do Grupo CredBens.
@@ -67,8 +66,12 @@ Seja Ana Clara. Seja incrível.
     const resposta = gpt.data.choices[0].message.content;
 
     await axios.post(
-      `https://api.z-api.io/instances/${ZAPI_INSTANCE_ID}/token/${ZAPI_TOKEN}/send-text`,
-      { phone, message: resposta }
+      `https://api.ultramsg.com/instance127026/messages/chat`,
+      {
+        token: ULTRAMSG_TOKEN,
+        to: phone,
+        body: resposta
+      }
     );
 
     return res.status(200).send("Mensagem enviada!");
