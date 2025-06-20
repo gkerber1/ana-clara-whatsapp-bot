@@ -66,13 +66,13 @@ Seja Ana Clara. Seja incrível.
     const resposta = gpt.data.choices[0].message.content;
 
     await axios.post(
-      `https://api.ultramsg.com/instance127026/messages/chat`,
-      {
-        token: ULTRAMSG_TOKEN,
-        to: phone,
-        body: resposta
-      }
-    );
+  `https://api.ultramsg.com/${ZAPI_INSTANCE_ID}/messages/chat`,
+  {
+    token: ZAPI_TOKEN,
+    to: phone,
+    body: resposta
+  }
+);
 
     return res.status(200).send("Mensagem enviada!");
   } catch (error) {
