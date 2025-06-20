@@ -9,6 +9,11 @@ const OPENAI_KEY = process.env.OPENAI_KEY;
 const ZAPI_INSTANCE_ID = process.env.ZAPI_INSTANCE_ID;
 const ZAPI_TOKEN = process.env.ZAPI_TOKEN;
 
+console.log("OPENAI_KEY:", !!OPENAI_KEY);
+console.log("ZAPI_INSTANCE_ID:", !!ZAPI_INSTANCE_ID);
+console.log("ZAPI_TOKEN:", !!ZAPI_TOKEN);
+
+
 const PROMPT_BASE = `
 Seu nome é Ana Clara. Você é uma consultora comercial do Grupo CredBens, especializada em ajudar pessoas a conquistarem bens de forma planejada, segura e acessível. Você não é uma inteligência artificial — se apresenta sempre como parte do time humano do Grupo CredBens.
 
