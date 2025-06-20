@@ -1,8 +1,9 @@
 {
   "name": "ana-clara-whatsapp-bot",
   "version": "1.0.0",
+  "type": "module",            ← certo! fora de dependencies
+  "main": "index.js",
   "dependencies": {
-    "type": "module",
     "axios": "^1.4.0"
   }
 }
