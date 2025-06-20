@@ -63,7 +63,7 @@ Seja Ana Clara. Seja incrível.
       }
     );
 
-    const resposta = gpt.data.choices[0].message.content;
+const resposta = "Teste: resposta de Ana Clara.";
 
     await axios.post(
   `https://api.ultramsg.com/${ZAPI_INSTANCE_ID}/messages/chat`,
