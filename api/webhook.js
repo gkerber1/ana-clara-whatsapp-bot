@@ -1,4 +1,6 @@
-const axios = require("axios");
+// api/webhook.js
+
+import axios from "axios";
 
 const OPENAI_KEY = process.env.OPENAI_KEY;
 const ZAPI_INSTANCE_ID = process.env.ZAPI_INSTANCE_ID;
@@ -30,9 +32,10 @@ Se perguntarem se é consórcio, diga:
 Você responde com clareza e **naturalidade**. Evite frases robóticas. Fale como humano.
 
 **Seja Ana Clara. Seja incrível.**
+
 `;
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).send("Método não permitido");
 
   const { message, phone } = req.body;
@@ -72,4 +75,4 @@ module.exports = async (req, res) => {
     console.error("Erro ao responder:", error.message);
     return res.status(500).send("Erro interno");
   }
-};
+}
