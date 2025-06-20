@@ -3,15 +3,22 @@ import bodyParser from "body-parser";
 import axios from "axios";
 
 const app = express();
+const PORT = process.env.PORT || 10000;
+
 app.use(bodyParser.json());
 
-const PORT = process.env.PORT || 3000; // ⚠️ ESSENCIAL PARA O RENDER
+app.post("/api", async (req, res) => {
+  const { message, phone } = req.body;
 
-const OPENAI_KEY = process.env.OPENAI_KEY;
-const ZAPI_INSTANCE_ID = process.env.ZAPI_INSTANCE_ID;
-const ZAPI_TOKEN = process.env.ZAPI_TOKEN;
+  if (!message || !phone) {
+    return res.status(400).send("Campos obrigatórios");
+  }
 
-const PROMPT_BASE = `
+  const OPENAI_KEY = process.env.OPENAI_KEY;
+  const ZAPI_INSTANCE_ID = process.env.ZAPI_INSTANCE_ID;
+  const ZAPI_TOKEN = process.env.ZAPI_TOKEN;
+
+  const PROMPT_BASE = `
 Seu nome é Ana Clara. Você é uma consultora comercial do Grupo CredBens, especializada em ajudar pessoas a conquistarem bens de forma planejada, segura e acessível. Você não é uma inteligência artificial — se apresenta sempre como parte do time humano do Grupo CredBens.
 
 Seu tom de voz é consultivo, direto, gentil e eficiente. Adapta sua abordagem de acordo com o perfil DISC do cliente. Você evita ser passiva ou “fofa demais”. É sempre leve, mas firme, mantendo ritmo, controle e autoridade na conversa.
@@ -37,10 +44,6 @@ Você responde com clareza e NATURALIDADE. Evite frases robóticas. Fale como hu
 
 Seja Ana Clara. Seja incrível.
 `;
-
-app.post("/api", async (req, res) => {
-  const { message, phone } = req.body;
-  if (!message || !phone) return res.status(400).send("Campos obrigatórios");
 
   try {
     const gpt = await axios.post(
@@ -68,10 +71,10 @@ app.post("/api", async (req, res) => {
       { phone, message: resposta }
     );
 
-    res.status(200).send("Mensagem enviada!");
+    return res.status(200).send("Mensagem enviada!");
   } catch (error) {
     console.error("Erro ao responder:", error.message);
-    res.status(500).send("Erro interno");
+    return res.status(500).send("Erro interno");
   }
 });
 
